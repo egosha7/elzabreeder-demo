@@ -1,0 +1,282 @@
+2024-08-03T17:03:54.613+0500	INFO	Start initial...
+2024-08-03T17:03:54.813+0500	ERROR	Failed connect (Redis)	{"error": "dial tcp [::1]:6379: connectex: No connection could be made because the target machine actively refused it."}
+2024-08-03T17:05:18.368+0500	INFO	Start initial...
+2024-08-03T17:05:18.545+0500	ERROR	Failed connect (Redis)	{"error": "dial tcp [::1]:6379: connectex: No connection could be made because the target machine actively refused it."}
+2024-08-03T17:06:18.847+0500	INFO	Start initial...
+2024-08-03T17:06:19.137+0500	FATAL	Failed connect (Redis)	{"error": "dial tcp [::1]:6379: connectex: No connection could be made because the target machine actively refused it."}
+2024-08-03T17:47:27.819+0500	INFO	Start initial...
+2024-08-03T17:47:28.184+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:47:28.184+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:47:28.184+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:47:28.432+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T17:47:29.525+0500	INFO	Successfully connected to SMTP server
+2024-08-03T17:47:29.526+0500	INFO	Successfully initialization!
+2024-08-03T17:47:29.526+0500	ERROR	Ошибка запуска HTTPS сервера	{"error": "open /etc/tls/tls.crt: The system cannot find the path specified."}
+2024-08-03T17:48:07.815+0500	INFO	Start initial...
+2024-08-03T17:48:08.158+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:48:08.158+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:48:08.158+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:48:08.248+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T17:48:09.060+0500	INFO	Successfully connected to SMTP server
+2024-08-03T17:48:09.060+0500	INFO	Successfully initialization!
+2024-08-03T17:51:43.849+0500	INFO	Request received	{"URI": "/", "Method": "GET"}
+2024-08-03T17:51:43.849+0500	WARN	Access denied	{"Host": "192.168.3.69:8080"}
+2024-08-03T17:51:43.849+0500	INFO	Request completed	{"Status": 403, "Size": 14, "Duration": "301.5µs"}
+2024-08-03T17:52:23.281+0500	INFO	Start initial...
+2024-08-03T17:52:23.541+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:52:23.541+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:52:23.541+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:52:23.687+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T17:52:24.517+0500	INFO	Successfully connected to SMTP server
+2024-08-03T17:52:24.517+0500	INFO	Successfully initialization!
+2024-08-03T17:52:27.457+0500	INFO	Request received	{"URI": "/", "Method": "GET"}
+2024-08-03T17:52:27.501+0500	INFO	Request completed	{"Status": 200, "Size": 14219, "Duration": "43.4936ms"}
+2024-08-03T17:53:49.970+0500	INFO	Request received	{"URI": "/auth", "Method": "GET"}
+2024-08-03T17:53:49.979+0500	INFO	Request completed	{"Status": 200, "Size": 6138, "Duration": "9.2357ms"}
+2024-08-03T17:55:30.180+0500	INFO	Request received	{"URI": "/auth", "Method": "POST"}
+2024-08-03T17:55:30.181+0500	INFO	GenerateToken	{"user": {"login":"admin","password":"admin"}}
+2024-08-03T17:55:30.182+0500	ERROR	Failed to check user validity	{"error": "неверный пароль"}
+2024-08-03T17:55:30.183+0500	INFO	Request completed	{"Status": 401, "Size": 50, "Duration": "2.632ms"}
+2024-08-03T17:56:52.142+0500	INFO	Start initial...
+2024-08-03T17:56:52.518+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:56:52.518+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:56:52.518+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T17:56:52.705+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T17:56:53.601+0500	INFO	Successfully connected to SMTP server
+2024-08-03T17:56:53.601+0500	INFO	Successfully initialization!
+2024-08-03T17:56:59.416+0500	INFO	Request received	{"URI": "/auth", "Method": "POST"}
+2024-08-03T17:56:59.417+0500	INFO	GenerateToken	{"user": {"login":"admin","password":"admi"}}
+2024-08-03T17:56:59.418+0500	ERROR	Failed to check user validity	{"error": "password does not match"}
+2024-08-03T17:56:59.418+0500	INFO	Request completed	{"Status": 401, "Size": 50, "Duration": "1.9816ms"}
+2024-08-03T17:57:04.171+0500	INFO	Request received	{"URI": "/auth", "Method": "POST"}
+2024-08-03T17:57:04.172+0500	INFO	GenerateToken	{"user": {"login":"admin","password":"admin"}}
+2024-08-03T17:57:04.172+0500	INFO	User authenticated	{"login": "admin", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI3MzMwMjQsImlhdCI6MTcyMjY4OTgyNCwidXNlcl9pZCI6MiwiaXAiOiIxOTIuMTY4LjMuMTU3In0._T15ZYfwbj0hLRIIj_LhcXBfO3KtrfAiVwRq4_2RXOM"}
+2024-08-03T17:57:04.172+0500	INFO	Request completed	{"Status": 303, "Size": 0, "Duration": "917.6µs"}
+2024-08-03T17:57:04.249+0500	INFO	Request received	{"URI": "/admin/puppy", "Method": "GET"}
+2024-08-03T17:57:04.257+0500	INFO	Request completed	{"Status": 404, "Size": 8486, "Duration": "8.1488ms"}
+2024-08-03T17:58:20.584+0500	INFO	Request received	{"URI": "/user/add", "Method": "POST"}
+2024-08-03T17:58:20.586+0500	INFO	Request completed	{"Status": 404, "Size": 8486, "Duration": "1.8803ms"}
+2024-08-03T17:58:45.450+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T17:58:45.506+0500	INFO	Request completed	{"Status": 400, "Size": 25, "Duration": "55.2212ms"}
+2024-08-03T18:00:11.911+0500	INFO	Start initial...
+2024-08-03T18:00:12.156+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:00:12.156+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:00:12.156+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:00:12.309+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:00:13.119+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:00:13.119+0500	INFO	Successfully initialization!
+2024-08-03T18:00:13.950+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:00:14.003+0500	INFO	Request completed	{"Status": 400, "Size": 25, "Duration": "53.1162ms"}
+2024-08-03T18:01:35.025+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:01:35.076+0500	INFO	Request completed	{"Status": 400, "Size": 25, "Duration": "51.1766ms"}
+2024-08-03T18:03:00.804+0500	INFO	Start initial...
+2024-08-03T18:03:01.147+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:03:01.147+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:03:01.147+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:03:01.344+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:03:02.186+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:03:02.186+0500	INFO	Successfully initialization!
+2024-08-03T18:03:06.256+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:03:06.308+0500	INFO	Request completed	{"Status": 400, "Size": 25, "Duration": "52.5239ms"}
+2024-08-03T18:03:23.605+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:03:23.657+0500	INFO	Request completed	{"Status": 400, "Size": 25, "Duration": "52.7869ms"}
+2024-08-03T18:03:29.880+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:03:29.932+0500	INFO	Request completed	{"Status": 400, "Size": 25, "Duration": "51.8851ms"}
+2024-08-03T18:04:45.227+0500	INFO	Request received	{"URI": "/admin/user/add?login=elza&password=elza", "Method": "POST"}
+2024-08-03T18:04:45.280+0500	INFO	Request completed	{"Status": 400, "Size": 25, "Duration": "52.8142ms"}
+2024-08-03T18:06:37.820+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:06:37.871+0500	INFO	Request completed	{"Status": 400, "Size": 25, "Duration": "51.1778ms"}
+2024-08-03T18:17:21.408+0500	INFO	Request received	{"URI": "/admin/puppies", "Method": "POST"}
+2024-08-03T18:17:21.408+0500	INFO	Request completed	{"Status": 405, "Size": 0, "Duration": "571.1µs"}
+2024-08-03T18:17:27.794+0500	INFO	Request received	{"URI": "/admin/puppies", "Method": "GET"}
+2024-08-03T18:17:27.794+0500	INFO	User ID	{"userID": 2}
+2024-08-03T18:17:27.794+0500	INFO	Start get cache GetPuppies
+2024-08-03T18:17:27.805+0500	INFO	Start set cache SetPuppies
+2024-08-03T18:17:27.807+0500	INFO	Start set cache SetPuppyReviews
+2024-08-03T18:17:27.839+0500	INFO	Request completed	{"Status": 200, "Size": 27693, "Duration": "45.1496ms"}
+2024-08-03T18:17:46.630+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "GET"}
+2024-08-03T18:17:46.630+0500	INFO	Request completed	{"Status": 405, "Size": 0, "Duration": "0s"}
+2024-08-03T18:17:56.477+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:17:56.529+0500	INFO	Request completed	{"Status": 400, "Size": 25, "Duration": "52.6431ms"}
+2024-08-03T18:20:03.930+0500	INFO	Start initial...
+2024-08-03T18:20:04.341+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:20:04.341+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:20:04.342+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:20:04.628+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:20:05.383+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:20:05.383+0500	INFO	Successfully initialization!
+2024-08-03T18:20:06.196+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:20:06.249+0500	ERROR	Invalid request add user	{"error": "ОШИБКА: ошибка синтаксиса (примерное положение: \",\") (SQLSTATE 42601)"}
+2024-08-03T18:20:06.250+0500	INFO	Request completed	{"Status": 500, "Size": 25, "Duration": "53.6621ms"}
+2024-08-03T18:20:46.732+0500	INFO	Start initial...
+2024-08-03T18:20:46.963+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:20:46.963+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:20:46.963+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:20:47.151+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:20:47.981+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:20:47.981+0500	INFO	Successfully initialization!
+2024-08-03T18:20:50.741+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:20:50.793+0500	ERROR	Invalid request add user	{"error": "ОШИБКА: ошибка синтаксиса (примерное положение: \",\") (SQLSTATE 42601)"}
+2024-08-03T18:20:50.793+0500	INFO	Request completed	{"Status": 500, "Size": 25, "Duration": "52.4427ms"}
+2024-08-03T18:25:02.874+0500	INFO	Start initial...
+2024-08-03T18:25:03.387+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:25:03.387+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:25:03.387+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:25:03.566+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:25:04.332+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:25:04.332+0500	INFO	Successfully initialization!
+2024-08-03T18:25:04.824+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:25:04.878+0500	ERROR	Invalid request add user	{"error": "ОШИБКА: ошибка синтаксиса (примерное положение: \",\") (SQLSTATE 42601)"}
+2024-08-03T18:25:04.878+0500	INFO	Request completed	{"Status": 500, "Size": 25, "Duration": "53.5151ms"}
+2024-08-03T18:26:45.539+0500	INFO	Start initial...
+2024-08-03T18:26:45.802+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:26:45.802+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:26:45.802+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:26:45.975+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:26:46.750+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:26:46.750+0500	INFO	Successfully initialization!
+2024-08-03T18:26:47.270+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:26:47.323+0500	ERROR	Invalid request add user	{"error": "ОШИБКА: ошибка синтаксиса (примерное положение: \",\") (SQLSTATE 42601)"}
+2024-08-03T18:26:47.323+0500	INFO	Request completed	{"Status": 500, "Size": 25, "Duration": "53.0535ms"}
+2024-08-03T18:28:01.848+0500	INFO	Start initial...
+2024-08-03T18:28:02.089+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:28:02.089+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:28:02.089+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:28:02.242+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:28:02.835+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:28:02.835+0500	INFO	Successfully initialization!
+2024-08-03T18:28:04.403+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:28:04.455+0500	ERROR	Invalid request add user	{"error": "ОШИБКА: ошибка синтаксиса (примерное положение: \",\") (SQLSTATE 42601)"}
+2024-08-03T18:28:04.455+0500	INFO	Request completed	{"Status": 500, "Size": 25, "Duration": "52.4148ms"}
+2024-08-03T18:28:36.114+0500	INFO	Start initial...
+2024-08-03T18:28:36.418+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:28:36.418+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:28:36.418+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:28:36.539+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:28:37.375+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:28:37.375+0500	INFO	Successfully initialization!
+2024-08-03T18:28:37.915+0500	INFO	Request received	{"URI": "/admin/user/add", "Method": "POST"}
+2024-08-03T18:28:37.968+0500	ERROR	Invalid request add user	{"error": "ОШИБКА: ошибка синтаксиса (примерное положение: \",\") (SQLSTATE 42601)"}
+2024-08-03T18:28:37.968+0500	INFO	Request completed	{"Status": 500, "Size": 25, "Duration": "52.5433ms"}
+2024-08-03T18:29:01.062+0500	INFO	Request received	{"URI": "/admin/user/add?login=elza&password=elza", "Method": "POST"}
+2024-08-03T18:29:01.113+0500	ERROR	Invalid request add user	{"error": "ОШИБКА: ошибка синтаксиса (примерное положение: \",\") (SQLSTATE 42601)"}
+2024-08-03T18:29:01.113+0500	INFO	Request completed	{"Status": 500, "Size": 25, "Duration": "50.9524ms"}
+2024-08-03T18:29:11.445+0500	INFO	Request received	{"URI": "/admin/user/add?log=elza&password=elza", "Method": "POST"}
+2024-08-03T18:29:11.497+0500	ERROR	Invalid request add user	{"error": "ОШИБКА: ошибка синтаксиса (примерное положение: \",\") (SQLSTATE 42601)"}
+2024-08-03T18:29:11.497+0500	INFO	Request completed	{"Status": 500, "Size": 25, "Duration": "52.6007ms"}
+2024-08-03T18:32:26.445+0500	INFO	Start initial...
+2024-08-03T18:32:26.892+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:32:26.892+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:32:26.892+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:32:27.090+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:32:27.789+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:32:27.789+0500	INFO	Successfully initialization!
+2024-08-03T18:32:28.526+0500	INFO	Request received	{"URI": "/admin/user/add?login=i.malcev@mail.ru&password=Elza1985", "Method": "POST"}
+2024-08-03T18:32:28.580+0500	INFO	Request completed	{"Status": 200, "Size": 0, "Duration": "53.671ms"}
+2024-08-03T18:33:31.578+0500	INFO	Start initial...
+2024-08-03T18:33:31.883+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:33:31.883+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:33:31.883+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:33:31.988+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:33:32.556+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:33:32.556+0500	INFO	Successfully initialization!
+2024-08-03T18:34:55.904+0500	INFO	Request received	{"URI": "/admin/puppies", "Method": "GET"}
+2024-08-03T18:34:55.904+0500	INFO	User ID	{"userID": 2}
+2024-08-03T18:34:55.904+0500	INFO	Start get cache GetPuppies
+2024-08-03T18:34:55.909+0500	INFO	Start set cache SetPuppies
+2024-08-03T18:34:55.910+0500	INFO	Start set cache SetPuppyReviews
+2024-08-03T18:34:55.913+0500	INFO	Request completed	{"Status": 200, "Size": 27693, "Duration": "9.092ms"}
+2024-08-03T18:35:24.586+0500	INFO	Request received	{"URI": "/admin/puppies", "Method": "GET"}
+2024-08-03T18:35:24.587+0500	INFO	JWT cookie not found	{"error": "http: named cookie not present"}
+2024-08-03T18:35:24.587+0500	INFO	Request completed	{"Status": 401, "Size": 13, "Duration": "785.2µs"}
+2024-08-03T18:35:35.697+0500	INFO	Request received	{"URI": "/auth", "Method": "GET"}
+2024-08-03T18:35:35.721+0500	INFO	Request completed	{"Status": 200, "Size": 6138, "Duration": "24.0036ms"}
+2024-08-03T18:36:29.804+0500	INFO	Request received	{"URI": "/auth", "Method": "POST"}
+2024-08-03T18:36:29.804+0500	INFO	GenerateToken	{"user": {"login":"i.malcev@mail.ru","password":"Elza1985"}}
+2024-08-03T18:36:29.855+0500	INFO	User authenticated	{"login": "i.malcev@mail.ru", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI3MzUzODksImlhdCI6MTcyMjY5MjE4OSwidXNlcl9pZCI6NCwiaXAiOiIxOTIuMTY4LjMuMTU3In0.L0dRnPuMk3R2B1Ix1AfZUqJQkNvLlovIT6-43f3FT5o"}
+2024-08-03T18:36:29.856+0500	INFO	Request completed	{"Status": 303, "Size": 0, "Duration": "52.3691ms"}
+2024-08-03T18:36:29.881+0500	INFO	Request received	{"URI": "/admin/puppy", "Method": "GET"}
+2024-08-03T18:36:29.897+0500	INFO	Request completed	{"Status": 404, "Size": 8486, "Duration": "15.9874ms"}
+2024-08-03T18:37:02.994+0500	INFO	Start initial...
+2024-08-03T18:37:03.239+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:37:03.239+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:37:03.239+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:37:03.394+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:37:04.198+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:37:04.198+0500	INFO	Successfully initialization!
+2024-08-03T18:37:30.103+0500	INFO	Request received	{"URI": "/auth", "Method": "POST"}
+2024-08-03T18:37:30.104+0500	INFO	GenerateToken	{"user": {"login":"i.malcev@mail.ru","password":"Elza1985w"}}
+2024-08-03T18:37:30.155+0500	ERROR	Failed to check user validity	{"error": "неверный пароль"}
+2024-08-03T18:37:30.156+0500	INFO	Request completed	{"Status": 401, "Size": 50, "Duration": "52.4924ms"}
+2024-08-03T18:37:38.750+0500	INFO	Request received	{"URI": "/auth", "Method": "POST"}
+2024-08-03T18:37:38.751+0500	INFO	GenerateToken	{"user": {"login":"i.malcev@mail.ru","password":"Elza1985"}}
+2024-08-03T18:37:38.803+0500	INFO	User authenticated	{"login": "i.malcev@mail.ru", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI3MzU0NTgsImlhdCI6MTcyMjY5MjI1OCwidXNlcl9pZCI6NCwiaXAiOiIxOTIuMTY4LjMuMTU3In0.zMXJGUgcZrS9cSBJd85JPLOpc0SCDW2fSuNESPW9PbU"}
+2024-08-03T18:37:38.803+0500	INFO	Request completed	{"Status": 303, "Size": 0, "Duration": "52.4924ms"}
+2024-08-03T18:37:38.821+0500	INFO	Request received	{"URI": "/admin/puppies", "Method": "GET"}
+2024-08-03T18:37:38.821+0500	INFO	User ID	{"userID": 4}
+2024-08-03T18:37:38.821+0500	INFO	Start get cache GetPuppies
+2024-08-03T18:37:38.825+0500	INFO	Start set cache SetPuppies
+2024-08-03T18:37:38.825+0500	INFO	Start set cache SetPuppyReviews
+2024-08-03T18:37:38.828+0500	INFO	Request completed	{"Status": 200, "Size": 27693, "Duration": "7.3466ms"}
+2024-08-03T18:45:24.778+0500	INFO	Start initial...
+2024-08-03T18:45:25.040+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:45:25.040+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:45:25.040+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:45:25.308+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:45:26.223+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:45:26.223+0500	INFO	Successfully initialization!
+2024-08-03T18:53:33.941+0500	INFO	Start initial...
+2024-08-03T18:53:34.021+0500	INFO	Connected to Postgres
+2024-08-03T18:53:34.024+0500	INFO	Connected to MongoDB
+2024-08-03T18:53:34.026+0500	INFO	Connected to Redis
+2024-08-03T18:53:34.031+0500	INFO	Connected to S3
+2024-08-03T18:53:34.260+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:53:34.260+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:53:34.260+0500	INFO	Successfully connected to S3. Buckets:
+2024-08-03T18:53:34.467+0500	INFO	Objects in bucket elzabreeder-space :
+2024-08-03T18:53:35.323+0500	INFO	Successfully connected to SMTP server
+2024-08-03T18:53:35.323+0500	INFO	Successfully initialization!
+2024-08-08T16:23:45.671+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.746+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.766+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.766+0500	ERROR	Ошибка при получении данных о щенках	{"error": "service error"}
+2024-08-08T16:23:45.766+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.766+0500	ERROR	Ошибка при получении данных о родителях	{"error": "service error"}
+2024-08-08T16:23:45.766+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.766+0500	ERROR	Ошибка при обработке параметра страницы	{"error": "invalid page number"}
+2024-08-08T16:23:45.766+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.766+0500	ERROR	Ошибка при обработке параметра chocolate	{"error": "invalid chocolate color: <script>alert(XSS)</script>"}
+2024-08-08T16:23:45.766+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.767+0500	ERROR	Ошибка при обработке параметра gender	{"error": "invalid gender: SELECT"}
+2024-08-08T16:23:45.767+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.767+0500	ERROR	Ошибка при обработке параметра readyToMove	{"error": "invalid readyToMove value"}
+2024-08-08T16:23:45.767+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.780+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.794+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.794+0500	ERROR	Ошибка при получении данных о собаках	{"error": "service error"}
+2024-08-08T16:23:45.794+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.794+0500	ERROR	Ошибка при обработке параметра страницы	{"error": "invalid page number"}
+2024-08-08T16:23:45.794+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.794+0500	ERROR	Ошибка при обработке параметра chocolate	{"error": "invalid chocolate color: <script>alert(XSS)</script>"}
+2024-08-08T16:23:45.794+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.794+0500	ERROR	Ошибка при обработке параметра gender	{"error": "invalid gender: SELECT"}
+2024-08-08T16:23:45.795+0500	ERROR	Ошибка получения идентификатора пользователя из контекста
+2024-08-08T16:23:45.795+0500	ERROR	Ошибка при обработке параметра readyToMove	{"error": "invalid readyToMove value"}
+2024-08-08T16:23:45.830+0500	ERROR	Ошибка при получении данных о щенках	{"error": "service error"}
+2024-08-08T16:23:45.830+0500	ERROR	Ошибка при обработке параметра страницы	{"error": "invalid page number"}
+2024-08-08T16:23:45.830+0500	ERROR	Ошибка при обработке параметра chocolate	{"error": "invalid chocolate color: <script>alert(XSS)</script>"}
+2024-08-08T16:23:45.830+0500	ERROR	Ошибка при обработке параметра gender	{"error": "invalid gender: SELECT"}
+2024-08-08T16:23:45.831+0500	ERROR	Ошибка при обработке параметра readyToMove	{"error": "invalid readyToMove value"}
+2024-08-08T16:23:45.839+0500	ERROR	Неверный идентификатор щенка	{"id": "1234"}
+2024-08-08T16:23:45.839+0500	ERROR	Неверный идентификатор щенка	{"id": "abc"}
+2024-08-08T16:23:45.839+0500	ERROR	Ошибка сервиса: не удалось получить информацию о щенке	{"error": "service error"}
+2024-08-08T16:23:45.839+0500	ERROR	Ошибка сервиса: не удалось получить информацию об отзыве	{"error": "service error"}
+2024-08-08T16:23:45.840+0500	ERROR	Ошибка вывода страницы с щенками	{"error": "template execute error"}
+2024-08-08T16:23:45.840+0500	ERROR	Ошибка при обработке параметра страницы	{"error": "strconv.Atoi: parsing \"\": invalid syntax"}
+2024-08-08T16:23:45.866+0500	ERROR	Ошибка вывода главной страницы	{"error": "template parse error"}
+2024-08-08T16:23:45.866+0500	ERROR	Ошибка вывода главной страницы	{"error": "template execute error"}
+2024-08-08T16:23:45.873+0500	ERROR	Ошибка вывода страницы авторизации	{"error": "template parse error"}
+2024-08-08T16:23:45.873+0500	ERROR	Ошибка вывода страницы авторизации	{"error": "template execute error"}
+2024-08-08T16:23:45.888+0500	ERROR	Ошибка вывода страницы для добавления отзыва	{"error": "template execute error"}
+2024-08-08T16:23:45.899+0500	ERROR	Ошибка вывода страницы статьи	{"error": "template execute error"}
+2024-08-08T16:23:45.906+0500	ERROR	Ошибка вывода страницы для кода 404	{"error": "template execute error"}

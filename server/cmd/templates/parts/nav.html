@@ -1,0 +1,40 @@
+{{ define "nav"}}
+    <nav class="navbar navbar-expand-lg navbar-dark border-bottom">
+        <div class="container">
+            <!-- Вставляем логотип здесь -->
+            <a class="navbar-brand" href="/">
+                <img src="https://elzabreeder-space.s3.cloud.ru/logo.png" alt="Логотип" height="35" />
+            </a>
+            <a href="tel:+79613678583" id="mobileNumberMob"><span class="navbar-text">+7 961 367 85-83</span></a>
+            <!-- /Вставляем логотип здесь -->
+            <button
+                    class="navbar-toggler mr-auto"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/puppies">Щенки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/archive">Архив</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reviews">Отзывы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacts">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="tel:+79613678583" id="mobileNumber"><span class="navbar-text">+7 961 367 85-83</span></a>
+        </div>
+    </nav>
+{{ end }}

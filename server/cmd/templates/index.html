@@ -1,0 +1,262 @@
+{{ define "index" }}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="yandex-verification" content="f6ac492e5f55bd34" />
+  <title>Elza Breeder</title>
+
+  {{ template "links"}}
+
+  <!-- Дополнительные стили для золотой темы -->
+  <style>
+
+    @media only screen and (max-width: 768px) {
+      .footimg {
+        display: none;
+      }
+      #mobileNumber {
+        display: none;
+      }
+      #mobileNumberMob {
+        display: block;
+      }
+    }
+
+    @media only screen and (min-width: 768px) {
+      .footimg {
+        display: none;
+      }
+      #mobileNumber {
+        display: block;
+      }
+      #mobileNumberMob {
+        display: none;
+      }
+    }
+
+    body {
+      background-color: #000;
+      font-family: 'Rubik', sans-serif;
+    }
+
+
+
+    .navbar {
+      background-color: #000;
+    }
+
+    /* Стили для футера */
+    footer {
+      background-color: #0a0a0a; /* Цвет фона футера */
+      color: #575757; /* Цвет текста футера */
+      padding: 1em 0; /* Отступы внутри футера */
+    }
+
+    footer img {
+      height: 40px; /* Высота логотипа в футере */
+      margin-bottom: 10px; /* Отступ между текстом и логотипом */
+    }
+
+    .preloader {
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: 1001;
+    }
+
+    .preloader__image {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      width: 70px;
+      height: 70px;
+      margin-top: -35px;
+      margin-left: -35px;
+      text-align: center;
+      animation: preloader-rotate 2s infinite linear;
+    }
+
+    @keyframes preloader-rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loaded_hiding .preloader {
+      transition: 0.3s opacity;
+      opacity: 0;
+    }
+
+    .loaded .preloader {
+      display: none;
+    }
+
+    .video-background-holder {
+      position: relative;
+      background-color: black;
+      height: calc(100vh - 72px);
+      min-height: 25rem;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .video-background-holder video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 0;
+      -ms-transform: translateX(-50%) translateY(-50%);
+      -moz-transform: translateX(-50%) translateY(-50%);
+      -webkit-transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    .video-background-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .video-background-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: black;
+      opacity: 0.6;
+      z-index: 1;
+    }
+  </style>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(97930590, "init", {
+      clickmap:true,
+      trackLinks:true,
+      accurateTrackBounce:true
+    });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/97930590" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+
+<!-- Прелоадер -->
+{{ template "preloader"}}
+<!-- /Прелоадер -->
+
+<body class="d-flex flex-column min-vh-100">
+<!-- Шапка страницы -->
+{{ template "nav"}}
+<!-- Тело страницы -->
+<div class="container-fluid" style="margin: 0px; padding: 0px">
+  <div class="row m-0">
+    <div class="col-md-12 p-0">
+      <div class="video-background-holder">
+        <div class="video-background-overlay"></div>
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+          <source src="https://elzabreeder-space.s3.cloud.ru/video1.mp4" type="video/mp4">
+        </video>
+        <div class="video-background-content container h-100">
+          <div class="d-flex h-100 text-center align-items-center">
+            <div class="w-100 text-white">
+              <h1 class="display-4">Привет ♥</h1>
+              <p class="lead mb-0">Я тебя так долго ждал</p>
+              <p class="lead">Найди меня<a href="/puppies" class="text-white">
+                <u>здесь</u></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="projects-section bg-black mt-5" id="projects">
+    <div class="text-center"><img src="/static/logo.png" alt="Логотип" height="60" /></div>
+    <div class="container pt-5 px-4 px-lg-5">
+      <!-- Featured Project Row-->
+      <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+        <div class="col-xl-8 col-lg-7">
+          <img class="img-fluid pb-3 mb-lg-0 rounded" width="700" src="/static/Отзыв1.png" alt="..." />
+          <img class="img-fluid pb-3 mb-lg-0 rounded" width="700" src="/static/Отзыв2.png" alt="..." />
+          <img class="img-fluid pb-3 mb-lg-0 rounded" width="700" src="/static/Отзыв3.png" alt="..." />
+        </div>
+        <div class="col-xl-4 col-lg-5">
+          <div class="featured-text text-center text-lg-left">
+            <h4>Уже больше 10 лет мои выпускники находят любимый дом</h4>
+            <p class="ms-3 mb-0 text-white-50">Большой опыт в разведении собак позволяет мне уделять время с любовью к каждому щенку. А вам не сомневаться в выборе нового друга</p>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row gx-0 pt-5 mb-4 mb-lg-5 align-items-center">
+        <div class="col-xl-8 col-lg-7 text-center">
+          <img class="img-fluid pb-3 mb-lg-0 rounded" width="500" src="/static/rl.png" alt="..." />
+        </div>
+        <div class="col-xl-4 col-lg-5">
+          <div class="featured-text text-center text-lg-left">
+            <h4>Официальный партнер ®Royal Canin</h4>
+            <p class="ms-3 mb-0 text-white-50">Преобретайте корм по специальной цене. При приобретении щенка вас ждет подарок от ®Royal Canin</p>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+
+      <!-- Project One Row-->
+      <div class="row gx-0 mb-5 pt-5 mb-lg-0 justify-content-center">
+        <div class="col-lg-6"><img class="img-fluid" src="https://elzabreeder-space.s3.cloud.ru/Serebro_1721801541_4B24642F-EDB7-46EE-8141-36487A92D1F2.jpeg" alt="..." /></div>
+        <div class="col-lg-6">
+          <div class="bg-black text-center h-100 project">
+            <div class="d-flex h-100">
+              <div class="project-text w-100 my-auto text-center text-lg-left">
+                <h4 class="text-white">Забота о здоровье</h4>
+                <p class="mb-0 text-white-50 m-3">Каждый щенок получает все необходимы прививки. На момент взросления знакомится с детьми, получает необходимое внимание и ласку. Ветеренарный паспорт и чип (по желанию)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Project Two Row-->
+      <div class="row gx-0 justify-content-center">
+        <div class="col-lg-6"><img class="img-fluid" src="https://elzabreeder-space.s3.cloud.ru/Serebro_1721801542_620A7584-9B89-4A7C-9276-ABBF517354D8.jpeg" alt="..." /></div>
+        <div class="col-lg-6 order-lg-first">
+          <div class="bg-black text-center h-100 project">
+            <div class="d-flex h-100">
+              <div class="project-text w-100 my-auto text-center text-lg-right">
+                <h4 class="text-white">Международные документы</h4>
+                <p class="mb-0 text-white-50">Понадобится если вы планируете вылетать из России с собакой (оформляются отдельно)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{{ template "footer" }}
+
+{{ template "scripts"}}
+</body>
+</html>
+
+{{ end }}

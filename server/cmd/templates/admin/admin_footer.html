@@ -1,0 +1,37 @@
+{{ define "adminFooter"}}
+<footer class="mt-auto">
+  <div class="row container-fluid pt-4 h-100">
+    <div class="col-md-1"></div>
+    <div class="col-md-7">
+      <div class="row ps-5">
+        <div class="col-md-12">
+          <h2>Меню</h2>
+        </div>
+
+        <div class="col-md-12">
+          <!-- Пункты с гиперссылками -->
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="/" class="text-reset">Главная</a></li>
+            <li class="list-inline-item"><a href="/admin/puppies" class="text-reset">Щенки</a></li>
+            <li class="list-inline-item"><a href="/admin/dogs" class="text-reset">Взрослые собаки</a></li>
+            <li class="list-inline-item"><a href="/admin/archive" class="text-reset">Архив щенков</a></li>
+            <li class="list-inline-item"><a href="/reviews/new" class="text-reset">Оставить отзыв</a></li>
+            <li class="list-inline-item"><a href="/contacts" class="text-reset">Контакты</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 text-center">
+      <!-- Логотип в футере -->
+      <img src="logo.png" class="footimg" alt="Логотип">
+    </div>
+
+    <div class="col-md-12 text-center">
+      <hr />
+      <p class="text-center">&copy; 2024 Elza Breeder</p>
+    </div>
+
+  </div>
+</footer>
+{{ end }}

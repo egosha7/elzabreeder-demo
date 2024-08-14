@@ -1,0 +1,114 @@
+{{ define "auth"}}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elza Breeder</title>
+
+    {{ template "links"}}
+
+    <!-- Дополнительные стили для золотой темы -->
+    <style>
+        body {
+            background-color: #000;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .preloader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .preloader__image {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            width: 70px;
+            height: 70px;
+            margin-top: -35px;
+            margin-left: -35px;
+            text-align: center;
+            animation: preloader-rotate 2s infinite linear;
+        }
+
+        @keyframes preloader-rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loaded_hiding .preloader {
+            transition: 0.3s opacity;
+            opacity: 0;
+        }
+
+        .loaded .preloader {
+            display: none;
+        }
+    </style>
+</head>
+
+<!-- Прелоадер -->
+{{ template "preloader"}}
+<!-- /Прелоадер -->
+
+<body class="">
+<div class="container-xxl">
+    <div class="d-flex align-items-center justify-content-center" style="height: 800px">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center pb-5">
+                    <img src="https://elzabreeder-space.s3.cloud.ru/logo.png" class="img-fluid" style="width: 25rem" alt="Wild Landscape" />
+                </div>
+
+                <div class="card text-center " style="background-color:#292929;">
+                    <div class="card-body">
+                        <h4 class="card-title pb-4 pt-2">Авторизация</h4>
+                        <form action="/auth" method="post">
+                            <!-- Email input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input type="login" id="form1Example1" name="login" class="form-control" />
+                                <label class="form-label" for="form1Example1">Логин</label>
+                                <div class="form-notch">
+                                    <div class="form-notch-leading" style="width: 9px;"></div>
+                                    <div class="form-notch-middle" style="width: 88.8px;"></div>
+                                    <div class="form-notch-trailing"></div>
+                                </div>
+                            </div>
+
+                            <!-- Password input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input type="password" id="form1Example2" name="password" class="form-control" />
+                                <label class="form-label" for="form1Example2">Пароль</label>
+                                <div class="form-notch">
+                                    <div class="form-notch-leading" style="width: 9px;"></div>
+                                    <div class="form-notch-middle" style="width: 88.8px;"></div>
+                                    <div class="form-notch-trailing"></div>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <!-- Submit button -->
+                            <button data-mdb-ripple-init type="submit" class="btn btn-light btn-block">Вход</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+{{ template "scripts"}}
+
+</html>
+
+{{ end }}
