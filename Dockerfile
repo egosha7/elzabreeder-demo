@@ -1,13 +1,9 @@
-# Используем официальный образ Golang как базовый
 FROM golang:1.22-alpine AS builder
 
-# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем файлы go.mod и go.sum
 COPY server/go.mod server/go.sum ./
 
-# Загружаем зависимости
 RUN go mod download
 
 # Копируем остальной исходный код

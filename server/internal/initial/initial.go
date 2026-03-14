@@ -2,7 +2,9 @@ package initial
 
 import (
 	"context"
+	"flag"
 	"fmt"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/egosha7/site-go/internal/config"
@@ -24,8 +26,15 @@ const (
 
 func Initial(logger *zap.Logger) (*config.Config, *handlers.Handler) {
 	logger.Info("Start initial...")
+
+	configPath := flag.String("config", "config.yaml", "path to config file")
+	flag.Parse()
+
 	// Проверка конфигурации из флагов и переменных окружения.
-	cfg := config.OnFlag(logger)
+	cfg, err := config.Load(*configPath, logger)
+	if err != nil {
+		panic(err)
+	}
 
 	// Создание пула подключений
 	pool, err := db.ConnectToPostgresDB(cfg)
@@ -36,14 +45,14 @@ func Initial(logger *zap.Logger) (*config.Config, *handlers.Handler) {
 	}
 
 	// Подключение к базе данных Mongo.
-	clientMongo, err := db.ConnectToMongoDB(cfg.UriMongoDB)
+	clientMongo, err := db.ConnectToMongoDB(cfg.Mongo.DSN)
 	if err != nil {
 		logger.Fatal("Failed connect (Mongo)", zap.Error(err))
 	} else {
 		logger.Info("Connected to MongoDB")
 	}
 
-	clientRedis, err := db.InitRedisClient(cfg.RedisAddress, cfg.RedisPassword, cfg.RedisDBName)
+	clientRedis, err := db.InitRedisClient(cfg.Redis.Address, cfg.Redis.Password, cfg.Redis.DBName)
 	if err != nil {
 		logger.Fatal("Failed connect (Redis)", zap.Error(err))
 	} else {
@@ -51,7 +60,7 @@ func Initial(logger *zap.Logger) (*config.Config, *handlers.Handler) {
 	}
 	clientRedis.FlushAll(context.Background()).Err()
 
-	s3Client, err := db.InitS3Client()
+	s3Client, err := db.InitS3Client(cfg.S3)
 	if err != nil {
 		logger.Fatal("Failed to initialize S3 client", zap.Error(err))
 	} else {
@@ -73,20 +82,20 @@ func Initial(logger *zap.Logger) (*config.Config, *handlers.Handler) {
 	// Проверка подключения: Получение списка объектов в бакете
 	objectResult, err := s3Client.ListObjectsV2(
 		context.TODO(), &s3.ListObjectsV2Input{
-			Bucket: aws.String(db.BucketName),
+			Bucket: aws.String(cfg.S3.Bucket),
 		},
 	)
 	if err != nil {
 		logger.Fatal("Failed to list objects in bucket:", zap.Error(err))
 	}
 
-	logger.Info("Objects in bucket " + db.BucketName + " :")
+	logger.Info("Objects in bucket " + cfg.S3.Bucket + " :")
 	for _, object := range objectResult.Contents {
 		fmt.Printf("* %s\n", aws.ToString(object.Key))
 	}
 
 	// Создание хранилища
-	repo := repository.NewRepository(pool, clientMongo, clientRedis, logger, s3Client, db.BucketName)
+	repo := repository.NewRepository(pool, clientMongo, clientRedis, logger, s3Client, cfg.S3.Bucket)
 	services := service.NewUserService(repo, logger)
 	h := handlers.NewHandler(services, logger)
 	mailer := mailer2.NewMailer(

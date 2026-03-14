@@ -3,8 +3,11 @@ package db
 import (
 	"context"
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
-	s3config "github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/egosha7/site-go/internal/config"
 	"github.com/go-redis/redis/v8"
@@ -12,17 +15,13 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
-	"net/http"
 )
-
-const BucketName = "elzabreeder-space"
 
 // ConnectToPostgresDB устанавливает соединение с базой данных на основе конфигурации.
 // Возвращает соединение (pgx. Conn) и ошибку, если возникает ошибка при подключении.
 func ConnectToPostgresDB(cfg *config.Config) (*pgxpool.Pool, error) {
 	// Парсинг конфигурации для пула подключений
-	configDB, err := pgxpool.ParseConfig(cfg.DataBase)
+	configDB, err := pgxpool.ParseConfig(cfg.Postgres.DSN)
 	if err != nil {
 		return nil, err
 	}
@@ -72,29 +71,27 @@ func ConnectToMongoDB(uri string) (*mongo.Client, error) {
 	return client, nil
 }
 
-func InitS3Client() (*s3.Client, error) {
-	// Создаем кастомный обработчик эндпоинтов, который для сервиса S3 и региона ru-central-1 выдаст корректный URL
-	customResolver := aws.EndpointResolverWithOptionsFunc(
-		func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-			if service == s3.ServiceID && region == "ru-central-1" {
-				return aws.Endpoint{
-					PartitionID:   "s3",
-					URL:           "https://s3.cloud.ru",
-					SigningRegion: "ru-central-1",
-				}, nil
-			}
-			return aws.Endpoint{}, fmt.Errorf("unknown endpoint requested")
-		},
-	)
-
-	// Подгружаем конфигрурацию из ~/.aws/*
-	cfg, err := s3config.LoadDefaultConfig(context.TODO(), s3config.WithEndpointResolverWithOptions(customResolver))
-	if err != nil {
-		log.Fatal(err)
+func InitS3Client(cfgS3 config.S3Config) (*s3.Client, error) {
+	awsCfg := aws.Config{
+		Region:      cfgS3.Region,
+		Credentials: credentials.NewStaticCredentialsProvider(cfgS3.AccessKey, cfgS3.SecretKey, ""),
+		EndpointResolverWithOptions: aws.EndpointResolverWithOptionsFunc(
+			func(service, region string, options ...interface{}) (aws.Endpoint, error) {
+				if service == s3.ServiceID {
+					return aws.Endpoint{
+						URL:           cfgS3.URL,
+						SigningRegion: cfgS3.Region,
+					}, nil
+				}
+				return aws.Endpoint{}, fmt.Errorf("unknown endpoint requested")
+			},
+		),
 	}
 
-	// Создаем клиента для доступа к хранилищу S3
-	client := s3.NewFromConfig(cfg)
+	client := s3.NewFromConfig(awsCfg, func(o *s3.Options) {
+		o.UsePathStyle = true
+	})
+
 	return client, nil
 }
 

@@ -1,0 +1,12 @@
+Source: elza-breeder
+Section: service
+Priority: optional
+Maintainer: Egor Sharipov <egor.sharik@yandex.ru>
+Build-Depends: debhelper-compat (= 11)
+Standards-Version: 4.5.0
+
+Package: elza-breeder
+Architecture: all
+Depends: ${misc:Depends}
+Description: Elza Breeder Application
+ Api server for Elza Breeder.

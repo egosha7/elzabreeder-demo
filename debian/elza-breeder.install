@@ -1,0 +1,3 @@
+build/usr/bin/elza-breeder usr/bin/
+build/etc/elza-breeder/config.yaml etc/elza-breeder/
+build/lib/systemd/system/elza-breeder.service lib/systemd/system/

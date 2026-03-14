@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/egosha7/site-go/internal/initial"
-	"github.com/egosha7/site-go/internal/metrics"
 	"net/http"
 	"os"
 	"os/signal"
 	"sync"
 	"syscall"
+
+	"github.com/egosha7/site-go/internal/initial"
+	"github.com/egosha7/site-go/internal/metrics"
 
 	log "github.com/egosha7/site-go/internal/logger"
 	routes "github.com/egosha7/site-go/internal/router"
@@ -65,10 +66,8 @@ func main() {
 	// Сервер для метрик
 	go metrics.StartMetricsServer("1721")
 
-	certFile := ".../etc/tls/tls.crt"
-	keyFile := ".../etc/tls/tls.key"
-	fmt.Printf("Starting server on %s with cert: %s and key: %s\n", cfg.Addr, certFile, keyFile)
-	if err := http.ListenAndServeTLS(cfg.Addr, certFile, keyFile, log.LogMiddleware(logger, r)); err != nil {
+	fmt.Printf("Starting server on %s with cert: %s and key: %s\n", cfg.Host.Addr, cfg.Host.CertFile, cfg.Host.KeyFile)
+	if err := http.ListenAndServeTLS(cfg.Host.Addr, cfg.Host.CertFile, cfg.Host.KeyFile, log.LogMiddleware(logger, r)); err != nil {
 		logger.Error("Ошибка запуска HTTPS сервера", zap.Error(err))
 		os.Exit(1)
 	}

@@ -1,0 +1,225 @@
+{{ define "newFeedback" }}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elza Breeder</title>
+
+  {{ template "links"}}
+
+  <!-- Дополнительные стили для золотой темы -->
+  <style>
+    @media only screen and (max-width: 768px) {
+      .footimg {
+        display: none;
+      }
+      #mobileNumber {
+        display: none;
+      }
+      #mobileNumberMob {
+        display: block;
+      }
+    }
+
+    @media only screen and (min-width: 768px) {
+      .footimg {
+        display: none;
+      }
+      #mobileNumber {
+        display: block;
+      }
+      #mobileNumberMob {
+        display: none;
+      }
+    }
+
+    body {
+      background-color: #000;
+      font-family: 'Rubik', sans-serif;
+    }
+
+    .navbar {
+      background-color: #000;
+    }
+
+    /* Стили для футера */
+    footer {
+      background-color: #0a0a0a; /* Цвет фона футера */
+      color: #575757; /* Цвет текста футера */
+      padding: 1em 0; /* Отступы внутри футера */
+    }
+
+    footer img {
+      height: 40px; /* Высота логотипа в футере */
+      margin-bottom: 10px; /* Отступ между текстом и логотипом */
+    }
+
+    .preloader {
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: 1001;
+    }
+
+    .preloader__image {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      width: 70px;
+      height: 70px;
+      margin-top: -35px;
+      margin-left: -35px;
+      text-align: center;
+      animation: preloader-rotate 2s infinite linear;
+    }
+
+    @keyframes preloader-rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loaded_hiding .preloader {
+      transition: 0.3s opacity;
+      opacity: 0;
+    }
+
+    .loaded .preloader {
+      display: none;
+    }
+  </style>
+  <script src="/static/js/scripts.js"></script>
+</head>
+
+<!-- Прелоадер -->
+{{ template "preloader"}}
+<!-- /Прелоадер -->
+
+<body class="d-flex flex-column min-vh-100">
+<!-- Шапка страницы -->
+{{ template "nav"}}
+<!-- Тело страницы -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div
+              class="bg-image"
+              style="
+    background-image: url('https://mdbcdn.b-cdn.net/img/new/fluid/nature/012.webp');
+  "
+      >
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <h1 class="text-white mb-0">Page title</h1>
+          </div>
+        </div>
+      </div>
+      <div class="bg-body-tertiary">
+        <h2 class="pt-4"><strong>Оставить отзыв</strong></h2>
+        <!-- Breadcrumb -->
+        <nav class="d-flex mb-4">
+          <h6 class="mb-0">
+            <a href="/" class="text-reset text-muted">Главная</a>
+            <span class="text-muted">/</span>
+            <a href="/reviews" class="text-reset text-muted">Отзывы</a>
+            <span class="text-muted">/</span>
+            <a href="/reviews/new" class="text-reset text-secondary"><u>Оставить отзыв</u></a>
+          </h6>
+        </nav>
+        <!-- Breadcrumb -->
+      </div>
+      <!-- Форма редактирования -->
+      <form class="row needs-validation" action="/reviews/add" method="post" id="editForm" enctype="multipart/form-data" novalidate>
+        <div class="col-12 mb-4">
+          <div data-mdb-input-init class="form-outline">
+            <input type="text" name="name" id="name_Add" class="form-control" required/>
+            <label class="form-label" for="name_Add">Имя</label>
+          </div>
+          <div id="text" class="form-text">
+            Введите ваше имя
+          </div>
+        </div>
+
+        <div class="col-12 mb-4">
+          <div data-mdb-input-init class="form-outline">
+            <input type="text" name="phone" id="phone" class="form-control" value="+7" required/>
+            <label class="form-label" for="phone">Телефон</label>
+          </div>
+          <div id="text" class="form-text">
+            Номер нужен для прикрепления отзыва к щенку и он не будет виден другими пользователями сайта
+          </div>
+        </div>
+
+        <div class="col-12 mb-4">
+          <label for="formFileMultiple" class="form-label">Выбрать фото</label>
+          <input class="form-control" type="file" name="files" id="formFileMultiple" accept="image/jpeg,image/png" multiple required/>
+          <div id="text" class="form-text">
+            На фотографии должна быть собака про которую вы оставляете отзыв. Рекомендуем использовать квадратные фотографии (другие форматы будут обрезаны автоматически по центру)
+          </div>
+        </div>
+
+        <div class="col-12">
+          <!-- Message input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <textarea class="form-control" id="title_Add" name="title" rows="4" data-mdb-showcounter="true" maxlength="750" required></textarea>
+            <label class="form-label" for="title_Add">Текст отзыва</label>
+            <div class="form-helper d-flex mt-1"></div>
+          </div>
+        </div>
+        <div class="d-grid gap-2 col-6 my-4 mx-auto">
+          <button class="btn btn-secondary" type="submit" data-mdb-ripple-init>Отправить отзыв</button>
+        </div>
+      </form>
+
+      <div></div>
+    </div>
+  </div>
+</div>
+
+{{ template "footer"}}
+
+<!-- Подключение скриптов Bootstrap и jQuery (обязательно для MDB) -->
+<script
+        type="text/javascript"
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+<!-- MDB JS -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+<script>
+  (() => {
+    'use strict';
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation');
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach((form) => {
+      form.addEventListener('submit', (event) => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('#phone').mask('+7 (999) 999-99-99');
+  });
+</script>
+
+</body>
+</html>
+
+{{ end }}

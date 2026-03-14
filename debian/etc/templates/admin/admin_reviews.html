@@ -1,0 +1,460 @@
+{{ define "adminReviews" }}
+    <!DOCTYPE html>
+    <html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Elza Breeder</title>
+
+        <!-- Подключение шрифта Google Rubik -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+        <!-- Подключение стилей и скриптов MDB Bootstrap (Золотая тема) -->
+        <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@5.0.0/css/mdb.dark.min.css"
+        />
+
+        <!-- Подключение стилей Font Awesome -->
+        <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        />
+
+        <!-- Дополнительные стили для золотой темы -->
+        <style>
+
+            @media only screen and (max-width: 768px) {
+                .footimg {
+                    display: none;
+                }
+                #mobileNumber {
+                    display: none;
+                }
+                #mobileNumberMob {
+                    display: block;
+                }
+            }
+
+            @media only screen and (min-width: 768px) {
+                .footimg {
+                    display: none;
+                }
+                #mobileNumber {
+                    display: block;
+                }
+                #mobileNumberMob {
+                    display: none;
+                }
+            }
+
+            body {
+                background-color: #000;
+                font-family: 'Rubik', sans-serif;
+            }
+
+            .navbar {
+                background-color: #000;
+            }
+
+            /* Стили для футера */
+            footer {
+                background-color: #0a0a0a; /* Цвет фона футера */
+                color: #575757; /* Цвет текста футера */
+                padding: 1em 0; /* Отступы внутри футера */
+            }
+
+            footer img {
+                height: 40px; /* Высота логотипа в футере */
+                margin-bottom: 10px; /* Отступ между текстом и логотипом */
+            }
+
+            .preloader {
+                position: fixed;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                overflow: hidden;
+                z-index: 1001;
+            }
+
+            .preloader__image {
+                position: relative;
+                top: 50%;
+                left: 50%;
+                width: 70px;
+                height: 70px;
+                margin-top: -35px;
+                margin-left: -35px;
+                text-align: center;
+                animation: preloader-rotate 2s infinite linear;
+            }
+
+            @keyframes preloader-rotate {
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .loaded_hiding .preloader {
+                transition: 0.3s opacity;
+                opacity: 0;
+            }
+
+            .loaded .preloader {
+                display: none;
+            }
+
+            #card-foot {
+                background-color: #332d2d !important
+            }
+
+            .accordion-button {
+                background-color: #332d2d !important
+            }
+            .accordion-body {
+                background-color: #332d2d !important;
+                color: #fff !important
+            }
+
+            .carousel-content {
+                position: absolute;
+                bottom: 80%;
+                left: 80%;
+                z-index: 20;
+                color: white;
+                text-shadow: 0 1px 2px rgba(0,0,0,.6);
+            }
+        </style>
+        <script src="/static/js/scripts.js"></script>
+    </head>
+
+    {{ template "preloader" }}
+
+    <body class="d-flex flex-column min-vh-100">
+    <!-- Шапка страницы -->
+    {{ template "adminNav"}}
+    <!-- Тело страницы -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-body-tertiary">
+                    <h2 class="pt-4"><strong>Отзывы </strong> <span class="ms-1 badge badge-primary">Админ</span></h2>
+                    <!-- Breadcrumb -->
+                    <nav class="d-flex mb-4">
+                        <h6 class="mb-0">
+                            <a href="/" class="text-reset text-muted">Главная</a>
+                            <span class="text-muted">/</span>
+                            <a href="/reviews" class="text-reset text-secondary"><u>Отзывы</u></a>
+                        </h6>
+                    </nav>
+                    <!-- Breadcrumb -->
+                </div>
+
+                <div class="row">
+                    {{ $puppyNames := .FeedbackWithPuppyName }}
+                    {{ range .Reviews }}
+                        <div class="col-md-12">
+                            <div class="card bg-dark mb-3">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <div
+                                                    id="puppy_carousel_{{ .ID }}"
+                                                    class="carousel slide"
+                                                    data-mdb-ride="carousel"
+                                                    data-mdb-carousel-init
+                                            >
+                                                <div class="carousel-indicators">
+                                                    {{ $ID := .ID }}
+                                                    {{ range $index, $url := .Urls }}
+                                                        <button
+                                                                type="button"
+                                                                data-mdb-target="#puppy_carousel_{{ $ID }}"
+                                                                data-mdb-slide-to="{{ $index }}"
+                                                                {{ if eq $index 0 }}class="active"{{ end }}
+                                                                aria-current="true"
+                                                                aria-label="Slide {{ $index }}"
+                                                        ></button>
+                                                    {{ end }}
+                                                </div>
+                                                <div class="carousel-inner rounded-5">
+                                                    {{ range $i, $url := .Urls }}
+                                                        <div class="carousel-item{{ if eq $i 0 }} active{{ end }}">
+                                                            <img src="{{ $url }}" class="d-block w-100" alt="Puppy">
+                                                        </div>
+                                                    {{ end }}
+                                                </div>
+                                                <button
+                                                        class="carousel-control-prev"
+                                                        type="button"
+                                                        data-mdb-target="#puppy_carousel_{{ .ID }}"
+                                                        data-mdb-slide="prev"
+                                                >
+                                                    <i class="fas fa-chevron-left"></i>
+                                                    <!-- Иконка "влево" -->
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button
+                                                        class="carousel-control-next"
+                                                        type="button"
+                                                        data-mdb-target="#puppy_carousel_{{ .ID }}"
+                                                        data-mdb-slide="next"
+                                                >
+                                                    <i class="fas fa-chevron-right"></i>
+                                                    <!-- Иконка "вправо" -->
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                        <h3 class="card-title mb-2">
+                                                            {{ .Name }} {{ if .PuppyID }}<span class="ms-1 badge badge-secondary" style="background-color: #c2c2c2">{{ .PuppyName }}</span> {{ end }}
+                                                        </h3>
+                                                <p class="card-text">{{ .Title }}</p>
+                                                {{ if .PuppyID }}
+                                                <a href="/puppies/{{ .PuppyID }}" class="text-reset">
+                                                    <div class="note note-dark text-secondary mb-0">
+                                                        <strong>Этот щенок есть в архиве:</strong> <span class="ms-1 badge badge-secondary" style="background-color: #c2c2c2"><strong>Перейти к щенку <i class="fas fa-arrow-right"></i></strong></span>
+                                                    </div>
+                                                </a>
+                                                {{ end }}
+                                            </div>
+                                        </div>
+                                        <div class="bg-dark card-footer text-muted text-center" id="card-foot">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <a class="page-link text-secondary activity" href="#" data-mdb-toggle="modal" data-mdb-target="#editModal_{{ .ID }}"><i class="fa-regular fa-pen-to-square ps-1"></i></a>
+                                                </div>
+                                                <div class="col-4">
+                                                    <a class="page-link text-secondary activity" href="#" data-mdb-toggle="modal" data-mdb-target="#deleteModal_{{ .ID }}"><i class="fa-regular fa-trash-can ps-1"></i></a>
+                                                </div>
+                                                <div class="col-4">
+                                                    <a class="page-link text-secondary activity" href="#" data-mdb-toggle="modal" data-mdb-target="#inArchiveModal_{{ .ID }}"><i class="fa fa-chevron-right ps-1" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+
+                        <!-- Модальное окно -->
+                        <div class="modal fade" id="deleteModal_{{ .ID }}" tabindex="-1" aria-labelledby="deleteModalLabel_{{ .ID }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content bg-dark">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel_{{ .ID }}">Удалить</h5>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Вы точно хотите отзыв о щенке. Данные будут безвозвратно удаленны!
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form class="" action="/admin/reviews/delete" method="post" id="deleteForm_{{ .Name }}" novalidate>
+                                            <input type="hidden" name="id" value="{{ .ID }}">
+                                            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Закрыть</button>
+                                            <button type="submit" class="btn btn-danger">Удалить</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Модальное окно -->
+                        <div class="modal fade" id="inArchiveModal_{{ .ID }}" tabindex="-1" aria-labelledby="inArchiveModalLabel_{{ .ID }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content bg-dark">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="inArchiveModalLabel_{{ .ID }}">Перенести</h5>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Вы точно хотите перенести отзыв в неподтвержденное состояние?
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form class="" action="/admin/reviews/checked" method="post" id="inArchiveForm_{{ .ID }}" novalidate>
+                                            <input type="hidden" name="id" value="{{ .ID }}">
+                                            <input type="hidden" name="checked" value="false">
+                                            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Закрыть</button>
+                                            <button type="submit" class="btn btn-warning">Перенести</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Модальное окно -->
+                        <div class="modal fade" id="editModal_{{ .ID }}" tabindex="-1" aria-labelledby="editModalLabel_{{ .ID }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content bg-dark">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel_{{ .ID }}">Редактировать</h5>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Форма редактирования -->
+                                        <form class="row needs-validation" action="/admin/reviews/update" method="post" id="editForm_{{ .ID }}" enctype="multipart/form-data" novalidate>
+                                            <input type="hidden" name="id" value="{{ .ID }}">
+                                            <input type="hidden" name="puppyID" value="{{ .PuppyID }}">
+
+                                            <div class="col-12 mb-4">
+                                                <div data-mdb-input-init class="form-outline">
+                                                    <input type="text" name="name" id="name_{{ .ID }}" value="{{ .Name }}" class="form-control" required/>
+                                                    <label class="form-label" for="name_{{ .ID }}">Имя</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 mb-4">
+                                                <div data-mdb-input-init class="form-outline">
+                                                    <input type="text" name="phone" id="phone_{{ .Name }}" class="form-control phone-valid" value="{{ .Number }}" required/>
+                                                    <label class="form-label" for="phone_{{ .Name }}">Телефон</label>
+                                                </div>
+                                                <div id="text" class="form-text">
+                                                    Если изменить номер то отзыв может открепиться от щенка, можно использовать для прикрепления
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 mb-4">
+                                                <div data-mdb-input-init class="form-outline">
+                                                    <input type="text" id="date_{{ .ID }}" name="date" value="{{ .Date }}" class="form-control" required/>
+                                                    <label class="form-label" for="date_{{ .ID }}">Дата рождения</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 mb-4">
+                                                <div data-mdb-input-init class="form-outline">
+                                                    <input type="text" name="pID" id="puppyID_{{ .ID }}" value="{{ .PuppyID }}" class="form-control" disabled required/>
+                                                    <label class="form-label" for="puppyID_{{ .ID }}">ID щенка</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 mb-4 form-group">
+                                                <label>Фотографии</label>
+                                                <div id="photosContainer" class="d-flex flex-wrap row">
+                                                    {{ range $i, $url := .Urls }}
+                                                        <div id="photo_{{ $i }}" class="mb-2 col-6 position-relative">
+                                                            <img src="{{ $url }}" alt="Photo {{ $i }}" class="img-thumbnail">
+                                                            <button type="button" class="btn btn-danger btn-sm position-absolute" style="top: 5px; right: 5px;" onclick="removePhoto('photo_{{ $i }}')">Удалить</button>
+                                                            <input type="hidden" id="input_photo_{{ $i }}" name="existingPhotos" value="{{ $url }}">
+                                                        </div>
+                                                    {{ end }}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 mb-4">
+                                                <label for="formFileMultiple_{{ .ID }}" class="form-label">Выбрать фото</label>
+                                                <input class="form-control" type="file" name="files" id="formFileMultiple_{{ .ID }}" accept="image/jpeg,image/png" multiple/>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <!-- Message input -->
+                                                <div data-mdb-input-init class="form-outline mb-4">
+                                                    <textarea class="form-control" id="title_{{ .ID }}" name="title" rows="4" required>{{ .Title }}</textarea>
+                                                    <label class="form-label" for="title_{{ .ID }}">Описание</label>
+                                                </div>
+                                            </div>
+                                            <button style="display: none" type="submit" data-mdb-ripple-init></button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Закрыть</button>
+                                        <button type="button" class="btn btn-primary" onclick="submitFormFromFooter(this)">Сохранить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {{ else }}
+                        <div>
+                            <h4 class="pb-4">В данный момент здесь пусто</h4>
+                        </div>
+                    {{ end }}
+
+                    <div class="col-md-12">
+
+                        <nav class="d-flex justify-content-center mb-2">
+                            <h6 class="mb-0">
+                                <a href="/admin/reviews/archive" class="text-reset text-secondary">Перейти к неподтвержденным</a>
+                            </h6>
+                        </nav>
+                        {{ $totalPages := .TotalPages }}
+
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item{{ if eq .CurrentPage 1 }} disabled{{ end }}">
+                                    <a class="page-link" href="{{ if ne .CurrentPage 1 }}{{ printf "/reviews?page=%d" (sub .CurrentPage 1) }}{{ end }}">Назад</a>
+                                </li>
+                                {{ if eq $totalPages 1 }}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="/reviews?page=1">1</a>
+                                    </li>
+                                {{ else }}
+                                    {{ range $page := until $totalPages }}
+                                        <li class="page-item{{ if eq (add $page 1) $.CurrentPage}} fw-bold border rounded disabled{{ end }}">
+                                            <a class="page-link" href="{{ printf "/reviews?page=%d" (add $page 1)}}">{{ add $page 1 }}</a>
+                                        </li>
+                                    {{ end }}
+                                {{ end }}
+                                <li class="page-item{{ if eq .CurrentPage .TotalPages }} disabled{{ end }}">
+                                    <a class="page-link" href="{{ if ne .CurrentPage .TotalPages }}{{ printf "/reviews?page=%d" (add .CurrentPage 1) }}{{ end }}">Далее</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ template "adminFooter"}}
+
+    <!-- Подключение скриптов Bootstrap и jQuery (обязательно для MDB) -->
+    <script
+            type="text/javascript"
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <!-- MDB JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+    <script>
+        (() => {
+            'use strict';
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation');
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms).forEach((form) => {
+                form.addEventListener('submit', (event) => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('.phone-valid').mask('+7 (999) 999-99-99');
+        });
+    </script>
+
+    </body>
+    </html>
+
+{{ end }}

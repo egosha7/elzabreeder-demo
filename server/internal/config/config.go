@@ -1,10 +1,12 @@
 package config
 
 import (
-	"flag"
+	"fmt"
+
 	"github.com/caarlos0/env/v6"
-	"net"
-	"regexp"
+	"gopkg.in/yaml.v3"
+
+	"os"
 
 	"github.com/joho/godotenv"
 	"go.uber.org/zap"
@@ -12,58 +14,93 @@ import (
 
 // Config - структура конфигурации приложения
 type Config struct {
-	Addr          string `env:"SERVER_ADDRESS" json:"server_address"`                 // Адрес сервера
-	BaseURL       string `env:"BASE_URL" json:"base_url"`                             // Базовый адрес результирующего сокращенного URL
-	DataBase      string `env:"DATABASE_DSN" json:"database_dsn"`                     // Адрес базы данных PostgresSQL
-	UriMongoDB    string `env:"DATABASE_MONGO" json:"database_mongoDBUri"`            // Адрес базы данных MongoDB
-	MongoDBName   string `env:"DATABASE_MONGODBNAME" json:"database_mongoDBName"`     // Название базы данных MongoDB
-	RedisAddress  string `env:"DATABASE_REDIS" json:"database_redisAddress"`          // Адрес базы данных Redis
-	RedisPassword string `env:"DATABASE_REDISPASSWORD" json:"database_redisPassword"` // Пароль базы данных Redis
-	RedisDBName   int    `env:"DATABASE_REDISDBNAME" json:"database_RedisDBName"`     // Имя базы данных Redis
+	Host     HostConfig     `yaml:"host"`
+	Postgres PostgresConfig `yaml:"postgres"`
+	Mongo    MongoConfig    `yaml:"mongo"`
+	Redis    RedisConfig    `yaml:"redis"`
+	S3       S3Config       `yaml:"s3"`
+}
+
+type HostConfig struct {
+	Addr     string `yaml:"addr" env:"SERVER_ADDRESS" json:"addr"`      // Адрес сервера
+	BaseURL  string `yaml:"base_url" env:"BASE_URL" json:"base_url"`    // Базовый адрес результирующего сокращенного URL
+	CertFile string `yaml:"cert_file" env:"CERT_FILE" json:"cert_file"` // Путь к файлу сертификата
+	KeyFile  string `yaml:"key_file" env:"KEY_FILE" json:"key_file"`    // Путь к файлу ключа
+}
+
+type PostgresConfig struct {
+	DSN string `yaml:"dsn" env:"DATABASE_DSN" json:"dsn"`
+}
+
+type MongoConfig struct {
+	DSN string `yaml:"dsn" env:"MONGO_DSN" json:"dsn"`
+}
+
+type RedisConfig struct {
+	Address  string `yaml:"address" env:"DATABASE_REDIS" json:"address"`           // Адрес базы данных Redis
+	Password string `yaml:"password" env:"DATABASE_REDISPASSWORD" json:"password"` // Пароль базы данных Redis
+	DBName   int    `yaml:"db_name" env:"DATABASE_REDISDBNAME" json:"db_name"`     // Имя базы данных Redis
+}
+
+type S3Config struct {
+	URL       string `yaml:"url" env:"S3_URL" json:"url"`
+	Region    string `yaml:"region" env:"S3_REGION" json:"region"`
+	AccessKey string `yaml:"access_key" env:"S3_ACCESS_KEY" json:"access_key"`
+	SecretKey string `yaml:"secret_key" env:"S3_SECRET_KEY" json:"secret_key"`
+	Bucket    string `yaml:"bucket" env:"S3_BUCKET" json:"bucket"`
 }
 
 // Default - функция для создания новой конфигурации со значениями по умолчанию
 func Default() *Config {
 	return &Config{
-		Addr:          "192.168.3.69:8080",
-		BaseURL:       "http://192.168.3.69:8080",
-		DataBase:      "postgres://postgres:egosha@localhost:5432/ElzaBreeder",
-		UriMongoDB:    "mongodb://localhost:27017",
-		RedisAddress:  "localhost:6379",
-		RedisPassword: "",
-		RedisDBName:   1,
+		Host: HostConfig{
+			Addr:     "192.168.3.69:8080",
+			BaseURL:  "http://192.168.3.69:8080",
+			CertFile: "",
+			KeyFile:  "",
+		},
+		Postgres: PostgresConfig{
+			DSN: "postgres://postgres:egosha@localhost:5432/ElzaBreeder",
+		},
+		Mongo: MongoConfig{
+			DSN: "mongodb://localhost:27017",
+		},
+		Redis: RedisConfig{
+			Address:  "localhost:6379",
+			Password: "",
+			DBName:   0,
+		},
+		S3: S3Config{
+			URL:       "http://192.168.3.69:9000",
+			Region:    "us-east-1",
+			AccessKey: "minioadmin",
+			SecretKey: "minioadmin",
+			Bucket:    "elzabreeder",
+		},
 	}
 }
 
-// OnFlag - функция для чтения значений из флагов командной строки и записи их в структуру Config
-func OnFlag(logger *zap.Logger) *Config {
-	defaultValue := Default()
+func Load(path string, logger *zap.Logger) (*Config, error) {
+	cfg := Default()
 
-	// Инициализация флагов командной строки
-	config := Config{}
-	flag.StringVar(&config.Addr, "a", defaultValue.Addr, "HTTP-адрес сервера")
-	flag.StringVar(&config.BaseURL, "b", defaultValue.BaseURL, "Базовый адрес результирующего сокращенного URL")
-	flag.StringVar(&config.DataBase, "d", defaultValue.DataBase, "Адрес базы данных PostgresSQL")
-	flag.StringVar(&config.UriMongoDB, "c", defaultValue.UriMongoDB, "Адрес базы данных MongoDB")
-	flag.StringVar(&config.RedisAddress, "r", defaultValue.RedisAddress, "Адрес базы данных Redis")
-	flag.StringVar(&config.RedisPassword, "rp", defaultValue.RedisPassword, "Пароль базы данных Redis")
-	flag.IntVar(&config.RedisDBName, "rn", defaultValue.RedisDBName, "Имя базы данных Redis")
-	flag.Parse()
+	if path != "" {
+		file, err := os.ReadFile(path)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := yaml.Unmarshal(file, cfg); err != nil {
+			return nil, err
+		}
+
+		fmt.Println(cfg)
+	}
 
 	godotenv.Load()
 
-	// Парсинг переменных окружения в структуру Config
-	if err := env.Parse(&config); err != nil {
-		logger.Error("Ошибка при парсинге переменных окружения", zap.Error(err))
+	if err := env.Parse(cfg); err != nil {
+		logger.Error("env parse error", zap.Error(err))
 	}
 
-	// Проверка корректности введенных значений флагов
-	if _, _, err := net.SplitHostPort(config.Addr); err != nil {
-		panic(err)
-	}
-	if matched, _ := regexp.MatchString(`^https?://[^\s/$.?#].[^\s]*$`, config.BaseURL); !matched {
-		panic("Invalid base URL")
-	}
-
-	return &config
+	return cfg, nil
 }

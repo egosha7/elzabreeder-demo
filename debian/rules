@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+
+override_dh_auto_build:
+	rm -rf build
+	mkdir -p build/usr/bin
+	cp elza-breeder build/usr/bin
+	mkdir -p build/etc/elza-breeder build/var/lib/elza-breeder build/lib/systemd/system
+	cp debian/etc/elza-breeder/config.yaml build/etc/elza-breeder/
+	cp -r debian/etc/static build/etc
+	cp -r debian/etc/templates build/etc
+	cp debian/systemd/elza-breeder.service build/lib/systemd/system/
+
+override_dh_auto_test:
+
+override_dh_auto_install:
+	mkdir -p debian/elza-breeder
+	cp -r build/* debian/elza-breeder/
+
+override_dh_install:
+	# отключаем стандартную установку

@@ -1,0 +1,387 @@
+{{ define "puppyView"}}
+
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Elza Breeder</title>
+
+		{{ template "links"}}
+
+		<!-- Дополнительные стили для золотой темы -->
+		<style>
+			@media only screen and (max-width: 768px) {
+				.footimg {
+					display: none;
+				}
+
+				.border-start {
+					border-left: 1px solid #0a0a0a!important;
+				}
+
+				.border-gray {
+					border-left: 0px;
+				}
+
+				#mobileNumber {
+					display: none;
+				}
+				#mobileNumberMob {
+					display: block;
+				}
+			}
+
+			@media only screen and (min-width: 768px) {
+				#mobileNumber {
+					display: block;
+				}
+				#mobileNumberMob {
+					display: none;
+				}
+			}
+
+			body {
+				background-color: #000;
+				font-family: 'Rubik', sans-serif;
+			}
+
+			.navbar {
+				background-color: #000;
+			}
+
+			/* Стили для футера */
+			footer {
+				background-color: #0a0a0a; /* Цвет фона футера */
+				color: #575757; /* Цвет текста футера */
+				padding: 1em 0; /* Отступы внутри футера */
+			}
+
+			footer img {
+				height: 40px; /* Высота логотипа в футере */
+				margin-bottom: 10px; /* Отступ между текстом и логотипом */
+			}
+
+			.preloader {
+				position: fixed;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				overflow: hidden;
+				z-index: 1001;
+			}
+
+			.preloader__image {
+				position: relative;
+				top: 50%;
+				left: 50%;
+				width: 70px;
+				height: 70px;
+				margin-top: -35px;
+				margin-left: -35px;
+				text-align: center;
+				animation: preloader-rotate 2s infinite linear;
+			}
+
+			@keyframes preloader-rotate {
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+
+			.loaded_hiding .preloader {
+				transition: 0.3s opacity;
+				opacity: 0;
+			}
+
+			.loaded .preloader {
+				display: none;
+			}
+		</style>
+	</head>
+
+
+
+	<!-- Прелоадер -->
+	{{ template "preloader"}}
+	<!-- /Прелоадер -->
+
+	<body class="d-flex flex-column min-vh-100">
+	<!-- Шапка страницы -->
+	{{ template "nav"}}
+
+{{- if .Puppy }}
+	<!-- Heading -->
+	<div class="bg-body-tertiary container pt-4">
+		<!-- Breadcrumb -->
+		<nav class="d-flex">
+			<h6 class="mb-0">
+				<a href="/" class="text-reset text-muted">Главная</a>
+				<span class="text-muted">/</span>
+				<a href="/puppies" class="text-reset text-muted">Щенки</a>
+	{{ if .Puppy.Archived }}
+				<span class="text-muted">/</span>
+				<a href="/archive" class="text-reset text-muted">Архив</a>
+					{{ end }}
+				<span class="text-muted">/</span>
+				<a href="#" class="text-reset text-secondary">{{ .Puppy.Name }}</a>
+			</h6>
+		</nav>
+		<!-- Breadcrumb -->
+	</div>
+
+	<div class="container mt-4" id="puppyCon">
+		<div class="row">
+			<div class="col-md">
+				<!-- Карусель с фотографиями -->
+				<div
+						id="puppy_carousel"
+						class="carousel slide"
+						data-mdb-ride="carousel"
+						data-mdb-carousel-init
+				>
+					<div class="carousel-indicators">
+						{{ range $index, $url := .Puppy.Urls }}
+							<button
+									type="button"
+									data-mdb-target="#puppy_carousel"
+									data-mdb-slide-to="{{ $index }}"
+									{{ if eq $index 0 }}class="active"{{ end }}
+									aria-current="true"
+									aria-label="Slide {{ $index }}"
+							></button>
+						{{ end }}
+					</div>
+					<div class="carousel-inner">
+						{{ range $i, $url := .Puppy.Urls }}
+							<div class="carousel-item{{ if eq $i 0 }} active{{ end }}">
+								<img src="{{ $url }}" class="d-block w-100 rounded" alt="Puppy">
+							</div>
+						{{ end }}
+					</div>
+					<button class="carousel-control-prev" type="button" data-mdb-target="#puppy_carousel" data-mdb-slide="prev">
+						<i class="fas fa-chevron-left"></i> <!-- Иконка "влево" -->
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-mdb-target="#puppy_carousel" data-mdb-slide="next">
+						<i class="fas fa-chevron-right"></i> <!-- Иконка "вправо" -->
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+				<!-- /Карусель с фотографиями -->
+			</div>
+			<div class="col-md">
+				<div class="text-center">
+					<h2 class="fw-bold mt-4">{{ .Puppy.Name }} <span class="ms-1 badge badge-secondary">{{if eq "Сука" .Puppy.Sex}} Девочка {{ end }}{{if eq "Кобель" .Puppy.Sex}} Мальчик {{ end }}</span></h2>
+					<hr />
+					<p class="mt-3">
+						{{ .Puppy.Title }}
+					</p>
+					<p class="h5 mt-3">Цена: {{ .Puppy.Price }} руб.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{{ if .Feedback }}
+		<div class="container mt-5 mb-4">
+			<div class="note note-dark text-secondary mb-0">
+				<div class="card bg-dark">
+					<div class="row g-0">
+						<div class="col-md-4">
+							<div
+									id="puppy_carousel_{{ .Feedback.PuppyID }}"
+									class="carousel slide"
+									data-mdb-ride="carousel"
+									data-mdb-carousel-init
+							>
+								<div class="carousel-indicators">
+									{{ $puppyID := .Feedback.PuppyID }}
+									{{ range $index, $url := .Feedback.Urls }}
+										<button
+												type="button"
+												data-mdb-target="#puppy_carousel_{{ $puppyID }}"
+												data-mdb-slide-to="{{ $index }}"
+												{{ if eq $index 0 }}class="active"{{ end }}
+												aria-current="true"
+												aria-label="Slide {{ $index }}"
+										></button>
+									{{ end }}
+								</div>
+								<div class="carousel-inner rounded-5">
+									{{ range $i, $url := .Feedback.Urls }}
+										<div class="carousel-item{{ if eq $i 0 }} active{{ end }}">
+											<img src="{{ $url }}" class="d-block w-100" alt="Puppy">
+										</div>
+									{{ end }}
+								</div>
+								<button
+										class="carousel-control-prev"
+										type="button"
+										data-mdb-target="#puppy_carousel_{{ .Feedback.PuppyID }}"
+										data-mdb-slide="prev"
+								>
+									<i class="fas fa-chevron-left"></i>
+									<!-- Иконка "влево" -->
+									<span class="visually-hidden">Previous</span>
+								</button>
+								<button
+										class="carousel-control-next"
+										type="button"
+										data-mdb-target="#puppy_carousel_{{ .Feedback.PuppyID }}"
+										data-mdb-slide="next"
+								>
+									<i class="fas fa-chevron-right"></i>
+									<!-- Иконка "вправо" -->
+									<span class="visually-hidden">Next</span>
+								</button>
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h3 class="card-title mb-2">
+									{{ .Feedback.Name }} <span class="ms-1 badge badge-secondary" style="background-color: #c2c2c2">{{ .Puppy.Name }}</span>
+								</h3>
+								<p class="card-text">{{ .Feedback.Title }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{{ end }}
+	<div class="container mt-5 mb-4">
+		<div class="row">
+			<div class="col-md">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="text-center">
+							<h2 class="fw-bold">{{ .Mother.Name }}  <span class="badge rounded-pill badge-dark">Мама</span></h2>
+						</div>
+					</div>
+					<div class="col-md mt-2">
+						<!-- Карусель с фотографиями -->
+						<div
+								id="mother_carousel"
+								class="carousel slide h-20vh"
+								data-mdb-ride="carousel"
+						>
+							<div class="carousel-indicators">
+								{{ range $index, $url := .Mother.Urls }}
+									<button
+											type="button"
+											data-mdb-target="#mother_carousel"
+											data-mdb-slide-to="{{ $index }}"
+											{{ if eq $index 0 }}class="active"{{ end }}
+											aria-current="true"
+											aria-label="Slide {{ $index }}"
+									></button>
+								{{ end }}
+							</div>
+
+							<div class="carousel-inner">
+								{{ range $i, $url := .Mother.Urls }}
+									<div class="carousel-item{{ if eq $i 0 }} active{{ end }}">
+										<img src="{{ $url }}" class="d-block w-100 rounded" alt="Mother">
+									</div>
+								{{ end }}
+							</div>
+							<button class="carousel-control-prev" type="button" data-mdb-target="#mother_carousel" data-mdb-slide="prev">
+								<i class="fas fa-chevron-left"></i> <!-- Иконка "влево" -->
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-mdb-target="#mother_carousel" data-mdb-slide="next">
+								<i class="fas fa-chevron-right"></i> <!-- Иконка "вправо" -->
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
+						<!-- /Карусель с фотографиями -->
+					</div>
+					<div class="col-md mt-4">
+						<div class="note text-reset text-center mb-3">
+							{{ .Mother.Title }}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md border-start border-gray">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="text-center">
+							<h2 class="fw-bold">{{ .Father.Name }}  <span class="badge rounded-pill badge-dark">Папа</span></h2>
+						</div>
+					</div>
+					<div class="col-md mt-2">
+						<!-- Карусель с фотографиями -->
+						<div
+								id="father_carousel"
+								class="carousel slide h-20vh"
+								data-mdb-ride="carousel"
+						>
+							<div class="carousel-indicators">
+								{{ range $index, $url := .Mother.Urls }}
+									<button
+											type="button"
+											data-mdb-target="#father_carousel"
+											data-mdb-slide-to="{{ $index }}"
+											{{ if eq $index 0 }}class="active"{{ end }}
+											aria-current="true"
+											aria-label="Slide {{ $index }}"
+									></button>
+								{{ end }}
+							</div>
+							<div class="carousel-inner">
+								{{ range $i, $url := .Father.Urls }}
+									<div class="carousel-item{{ if eq $i 0 }} active{{ end }}">
+										<img src="{{ $url }}" class="d-block w-100 rounded" alt="Mother">
+									</div>
+								{{ end }}
+							</div>
+							<button class="carousel-control-prev" type="button" data-mdb-target="#father_carousel" data-mdb-slide="prev">
+								<i class="fas fa-chevron-left"></i> <!-- Иконка "влево" -->
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-mdb-target="#father_carousel" data-mdb-slide="next">
+								<i class="fas fa-chevron-right"></i> <!-- Иконка "вправо" -->
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
+						<!-- /Карусель с фотографиями -->
+					</div>
+					<div class="col-md mt-4">
+						<div class="note text-reset text-center mb-3">
+							{{ .Father.Title }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		{{- else }}
+			<!-- Heading -->
+			<div class="bg-body-tertiary container pt-4">
+				<!-- Breadcrumb -->
+				<nav class="d-flex">
+					<h6 class="mb-0">
+						<a href="/" class="text-reset text-muted">Главная</a>
+						<span class="text-muted">/</span>
+						<a href="#" class="text-reset text-secondary">404</a>
+					</h6>
+				</nav>
+				<!-- Breadcrumb -->
+			</div>
+		<div class="text-center">
+			<h1 style="font-size: 10rem">404</h1>
+			<h6 class="font-monospace">Данной страницы не существует</h6>
+		</div>
+		{{- end }}
+
+	{{ template "footer"}}
+
+	{{ template "scripts"}}
+	</body>
+</html>
+
+{{ end }}

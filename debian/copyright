@@ -1,0 +1,6 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: elza-breeder
+Source: github.com/egosha7/elzabreeder-demo
+
+Files: *
+License: MIT

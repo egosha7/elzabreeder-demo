@@ -1,0 +1,63 @@
+# =============================
+# Stage 1 — сборка Go бинаря
+# =============================
+FROM golang:1.25-bookworm AS builder
+
+WORKDIR /src
+
+RUN apt-get update -qq && apt-get install -qqy \
+    build-essential \
+    libsystemd-dev
+
+# копируем только go.mod для кеша
+COPY server/go.mod server/go.sum ./server/
+
+WORKDIR /src/server
+RUN go mod download
+RUN go mod verify
+
+# копируем код
+COPY server .
+
+ENV GOOS=linux
+ENV GOARCH=amd64
+ENV CGO_ENABLED=0
+
+RUN go build -o /bin/elza-breeder ./cmd
+
+# =============================
+# Stage 2 — сборка deb пакета
+# =============================
+FROM ubuntu:22.04 AS debuilder
+
+# =============================
+
+RUN apt-get update && apt-get install -y \
+    devscripts \
+    debhelper \
+    dh-make \
+    dpkg-dev \
+    make
+
+WORKDIR /src
+
+ENV DEBIAN_FRONTEND noninteractive
+ARG PKG_VER
+ARG BUILD_NUMBER
+
+# Копируем только бинарник и каталог debian (с метаданными пакета)
+COPY --from=builder /bin/elza-breeder .
+COPY debian/ ./debian/
+
+RUN sed -i 's/\r$//' debian/rules   # удаляем CR (возврат каретки)
+RUN chmod +x debian/rules
+
+RUN dch -v ${PKG_VER}.${BUILD_NUMBER} "docker autobuild" && \
+    dpkg-buildpackage -uc -us
+
+# =============================
+# Stage 3 — финальный образ
+# =============================
+FROM ubuntu:22.04
+
+COPY --from=debuilder /*.deb /

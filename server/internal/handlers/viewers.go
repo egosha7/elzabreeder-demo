@@ -1,26 +1,32 @@
 package handlers
 
 import (
+	"fmt"
+	"html/template"
+	"net/http"
+	"strconv"
+
 	"github.com/Masterminds/sprig/v3"
 	"github.com/egosha7/site-go/internal/domain"
 	"github.com/go-chi/chi"
 	"github.com/jackc/pgx/v4"
 	"go.uber.org/zap"
-	"html/template"
-	"net/http"
-	"strconv"
 )
+
+var PathRoot = "/etc/templates/%s"
+var PathPartRoot = "/etc/templates/parts/%s"
 
 // MainView обрабатывает запрос на отображение главной страницы.
 func (h *Handler) MainView(w http.ResponseWriter, r *http.Request) {
 	t, err := h.ParseTemplate(
-		"cmd/templates/index.html",
-		"cmd/templates/parts/footer.html",
-		"cmd/templates/parts/nav.html",
-		"cmd/templates/parts/preloader.html",
-		"cmd/templates/parts/links.html",
-		"cmd/templates/parts/scripts.html",
+		fmt.Sprintf(PathRoot, "index.html"),
+		fmt.Sprintf(PathPartRoot, "footer.html"),
+		fmt.Sprintf(PathPartRoot, "nav.html"),
+		fmt.Sprintf(PathPartRoot, "preloader.html"),
+		fmt.Sprintf(PathPartRoot, "links.html"),
+		fmt.Sprintf(PathPartRoot, "scripts.html"),
 	)
+
 	if err != nil {
 		h.logger.Error("Ошибка вывода главной страницы", zap.Error(err))
 		http.Error(w, "Ошибка вывода главной страницы", http.StatusInternalServerError)
@@ -39,10 +45,10 @@ func (h *Handler) MainView(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) AuthView(w http.ResponseWriter, r *http.Request) {
 
 	t, err := h.ParseTemplate(
-		"cmd/templates/auth.html",
-		"cmd/templates/parts/preloader.html",
-		"cmd/templates/parts/links.html",
-		"cmd/templates/parts/scripts.html",
+		fmt.Sprintf(PathRoot, "auth.html"),
+		fmt.Sprintf(PathPartRoot, "preloader.html"),
+		fmt.Sprintf(PathPartRoot, "links.html"),
+		fmt.Sprintf(PathPartRoot, "scripts.html"),
 	)
 	if err != nil {
 		h.logger.Error("Ошибка вывода страницы авторизации", zap.Error(err))
@@ -113,12 +119,12 @@ func (h *Handler) PuppiesView(w http.ResponseWriter, r *http.Request, archived b
 	if archived {
 		t := template.Must(
 			template.New("puppyArchive").Funcs(sprig.FuncMap()).ParseFiles(
-				"cmd/templates/menu_archive.html",
-				"cmd/templates/parts/footer.html",
-				"cmd/templates/parts/nav.html",
-				"cmd/templates/parts/preloader.html",
-				"cmd/templates/parts/links.html",
-				"cmd/templates/parts/scripts.html",
+				fmt.Sprintf(PathRoot, "menu_archive.html"),
+				fmt.Sprintf(PathPartRoot, "footer.html"),
+				fmt.Sprintf(PathPartRoot, "nav.html"),
+				fmt.Sprintf(PathPartRoot, "preloader.html"),
+				fmt.Sprintf(PathPartRoot, "links.html"),
+				fmt.Sprintf(PathPartRoot, "scripts.html"),
 			),
 		)
 
@@ -150,12 +156,12 @@ func (h *Handler) PuppiesView(w http.ResponseWriter, r *http.Request, archived b
 
 		t := template.Must(
 			template.New("puppyMenu").Funcs(sprig.FuncMap()).ParseFiles(
-				"cmd/templates/menu_puppy.html",
-				"cmd/templates/parts/footer.html",
-				"cmd/templates/parts/nav.html",
-				"cmd/templates/parts/preloader.html",
-				"cmd/templates/parts/links.html",
-				"cmd/templates/parts/scripts.html",
+				fmt.Sprintf(PathRoot, "/menu_puppy.html"),
+				fmt.Sprintf(PathPartRoot, "footer.html"),
+				fmt.Sprintf(PathPartRoot, "nav.html"),
+				fmt.Sprintf(PathPartRoot, "preloader.html"),
+				fmt.Sprintf(PathPartRoot, "links.html"),
+				fmt.Sprintf(PathPartRoot, "scripts.html"),
 			),
 		)
 
@@ -216,12 +222,12 @@ func (h *Handler) PuppyView(w http.ResponseWriter, r *http.Request) {
 
 	t := template.Must(
 		template.New("puppyView").Funcs(sprig.FuncMap()).ParseFiles(
-			"cmd/templates/puppy.html",
-			"cmd/templates/parts/footer.html",
-			"cmd/templates/parts/nav.html",
-			"cmd/templates/parts/preloader.html",
-			"cmd/templates/parts/links.html",
-			"cmd/templates/parts/scripts.html",
+			fmt.Sprintf(PathRoot, "/puppy.html"),
+			fmt.Sprintf(PathPartRoot, "footer.html"),
+			fmt.Sprintf(PathPartRoot, "nav.html"),
+			fmt.Sprintf(PathPartRoot, "preloader.html"),
+			fmt.Sprintf(PathPartRoot, "links.html"),
+			fmt.Sprintf(PathPartRoot, "scripts.html"),
 		),
 	)
 
@@ -267,12 +273,12 @@ func (h *Handler) ReviewsView(w http.ResponseWriter, r *http.Request) {
 
 	t := template.Must(
 		template.New("reviews").Funcs(sprig.FuncMap()).ParseFiles(
-			"cmd/templates/reviews.html",
-			"cmd/templates/parts/footer.html",
-			"cmd/templates/parts/nav.html",
-			"cmd/templates/parts/preloader.html",
-			"cmd/templates/parts/links.html",
-			"cmd/templates/parts/scripts.html",
+			fmt.Sprintf(PathRoot, "/reviews.html"),
+			fmt.Sprintf(PathPartRoot, "footer.html"),
+			fmt.Sprintf(PathPartRoot, "nav.html"),
+			fmt.Sprintf(PathPartRoot, "preloader.html"),
+			fmt.Sprintf(PathPartRoot, "links.html"),
+			fmt.Sprintf(PathPartRoot, "scripts.html"),
 		),
 	)
 
@@ -298,12 +304,12 @@ func (h *Handler) ReviewsView(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) NewFeedbackView(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(
 		template.New("newFeedback").Funcs(sprig.FuncMap()).ParseFiles(
-			"cmd/templates/new_feedback.html",
-			"cmd/templates/parts/footer.html",
-			"cmd/templates/parts/nav.html",
-			"cmd/templates/parts/preloader.html",
-			"cmd/templates/parts/links.html",
-			"cmd/templates/parts/scripts.html",
+			fmt.Sprintf(PathRoot, "/new_feedback.html"),
+			fmt.Sprintf(PathPartRoot, "footer.html"),
+			fmt.Sprintf(PathPartRoot, "nav.html"),
+			fmt.Sprintf(PathPartRoot, "preloader.html"),
+			fmt.Sprintf(PathPartRoot, "links.html"),
+			fmt.Sprintf(PathPartRoot, "scripts.html"),
 		),
 	)
 
@@ -322,12 +328,12 @@ func (h *Handler) NewFeedbackView(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) ContactsView(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(
 		template.New("Contacts").Funcs(sprig.FuncMap()).ParseFiles(
-			"cmd/templates/contacts.html",
-			"cmd/templates/parts/footer.html",
-			"cmd/templates/parts/nav.html",
-			"cmd/templates/parts/preloader.html",
-			"cmd/templates/parts/links.html",
-			"cmd/templates/parts/scripts.html",
+			fmt.Sprintf(PathRoot, "/contacts.html"),
+			fmt.Sprintf(PathPartRoot, "footer.html"),
+			fmt.Sprintf(PathPartRoot, "nav.html"),
+			fmt.Sprintf(PathPartRoot, "preloader.html"),
+			fmt.Sprintf(PathPartRoot, "links.html"),
+			fmt.Sprintf(PathPartRoot, "scripts.html"),
 		),
 	)
 
@@ -346,12 +352,12 @@ func (h *Handler) ContactsView(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) ArticleView(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(
 		template.New("article").Funcs(sprig.FuncMap()).ParseFiles(
-			"cmd/templates/article.html",
-			"cmd/templates/parts/footer.html",
-			"cmd/templates/parts/nav.html",
-			"cmd/templates/parts/preloader.html",
-			"cmd/templates/parts/links.html",
-			"cmd/templates/parts/scripts.html",
+			fmt.Sprintf(PathRoot, "/article.html"),
+			fmt.Sprintf(PathPartRoot, "footer.html"),
+			fmt.Sprintf(PathPartRoot, "nav.html"),
+			fmt.Sprintf(PathPartRoot, "preloader.html"),
+			fmt.Sprintf(PathPartRoot, "links.html"),
+			fmt.Sprintf(PathPartRoot, "scripts.html"),
 		),
 	)
 
@@ -371,12 +377,12 @@ func (h *Handler) NotFoundView(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 	t := template.Must(
 		template.New("notFound").Funcs(sprig.FuncMap()).ParseFiles(
-			"cmd/templates/not_found.html",
-			"cmd/templates/parts/footer.html",
-			"cmd/templates/parts/nav.html",
-			"cmd/templates/parts/preloader.html",
-			"cmd/templates/parts/links.html",
-			"cmd/templates/parts/scripts.html",
+			fmt.Sprintf(PathRoot, "/not_found.html"),
+			fmt.Sprintf(PathPartRoot, "footer.html"),
+			fmt.Sprintf(PathPartRoot, "nav.html"),
+			fmt.Sprintf(PathPartRoot, "preloader.html"),
+			fmt.Sprintf(PathPartRoot, "links.html"),
+			fmt.Sprintf(PathPartRoot, "scripts.html"),
 		),
 	)
 

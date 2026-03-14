@@ -1,15 +1,19 @@
 package handlers
 
 import (
-	"github.com/Masterminds/sprig/v3"
-	"github.com/egosha7/site-go/internal/authMiddleware"
-	"github.com/egosha7/site-go/internal/domain"
-	"go.uber.org/zap"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/Masterminds/sprig/v3"
+	"github.com/egosha7/site-go/internal/authMiddleware"
+	"github.com/egosha7/site-go/internal/domain"
+	"go.uber.org/zap"
 )
+
+var PathAdminRoot = "/etc/templates/admin/%s"
 
 func (h *Handler) AdminPuppiesHandler(w http.ResponseWriter, r *http.Request, archived bool) {
 	// Получение идентификатора пользователя из контекста
@@ -83,10 +87,10 @@ func (h *Handler) AdminPuppiesHandler(w http.ResponseWriter, r *http.Request, ar
 	if archived {
 		t := template.Must(
 			template.New("adminPuppyArchive").Funcs(sprig.FuncMap()).ParseFiles(
-				"cmd/templates/admin/admin_menu_archive.html",
-				"cmd/templates/parts/preloader.html",
-				"cmd/templates/admin/admin_nav.html",
-				"cmd/templates/admin/admin_footer.html",
+				fmt.Sprintf(PathAdminRoot, "admin_menu_archive.html"),
+				fmt.Sprintf(PathPartRoot, "preloader.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_nav.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_footer.html"),
 			),
 		)
 
@@ -119,10 +123,10 @@ func (h *Handler) AdminPuppiesHandler(w http.ResponseWriter, r *http.Request, ar
 	} else {
 		t := template.Must(
 			template.New("adminPuppyMenu").Funcs(sprig.FuncMap()).ParseFiles(
-				"cmd/templates/admin/admin_menu_puppy.html",
-				"cmd/templates/parts/preloader.html",
-				"cmd/templates/admin/admin_nav.html",
-				"cmd/templates/admin/admin_footer.html",
+				fmt.Sprintf(PathAdminRoot, "admin_menu_puppy.html"),
+				fmt.Sprintf(PathPartRoot, "preloader.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_nav.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_footer.html"),
 			),
 		)
 
@@ -218,10 +222,10 @@ func (h *Handler) AdminDogsHandler(w http.ResponseWriter, r *http.Request, archi
 	if archived {
 		t := template.Must(
 			template.New("adminMenuArchiveDog").Funcs(sprig.FuncMap()).ParseFiles(
-				"cmd/templates/admin/admin_menu_archive_dog.html",
-				"cmd/templates/parts/preloader.html",
-				"cmd/templates/admin/admin_nav.html",
-				"cmd/templates/admin/admin_footer.html",
+				fmt.Sprintf(PathAdminRoot, "admin_menu_archive_dog.html"),
+				fmt.Sprintf(PathPartRoot, "preloader.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_nav.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_footer.html"),
 			),
 		)
 
@@ -250,10 +254,10 @@ func (h *Handler) AdminDogsHandler(w http.ResponseWriter, r *http.Request, archi
 	} else {
 		t := template.Must(
 			template.New("adminDogMenu").Funcs(sprig.FuncMap()).ParseFiles(
-				"cmd/templates/admin/admin_menu_dog.html",
-				"cmd/templates/parts/preloader.html",
-				"cmd/templates/admin/admin_nav.html",
-				"cmd/templates/admin/admin_footer.html",
+				fmt.Sprintf(PathAdminRoot, "admin_menu_dog.html"),
+				fmt.Sprintf(PathPartRoot, "preloader.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_nav.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_footer.html"),
 			),
 		)
 
@@ -307,10 +311,10 @@ func (h *Handler) AdminReviewsView(w http.ResponseWriter, r *http.Request, check
 	if checked {
 		t := template.Must(
 			template.New("adminReviews").Funcs(sprig.FuncMap()).ParseFiles(
-				"cmd/templates/admin/admin_reviews.html",
-				"cmd/templates/admin/admin_nav.html",
-				"cmd/templates/admin/admin_footer.html",
-				"cmd/templates/parts/preloader.html",
+				fmt.Sprintf(PathAdminRoot, "admin_reviews.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_nav.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_footer.html"),
+				fmt.Sprintf(PathPartRoot, "preloader.html"),
 			),
 		)
 
@@ -333,10 +337,10 @@ func (h *Handler) AdminReviewsView(w http.ResponseWriter, r *http.Request, check
 	} else {
 		t := template.Must(
 			template.New("adminReviewsArchive").Funcs(sprig.FuncMap()).ParseFiles(
-				"cmd/templates/admin/admin_reviews_archive.html",
-				"cmd/templates/admin/admin_nav.html",
-				"cmd/templates/admin/admin_footer.html",
-				"cmd/templates/parts/preloader.html",
+				fmt.Sprintf(PathAdminRoot, "admin_reviews_archive.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_nav.html"),
+				fmt.Sprintf(PathAdminRoot, "admin_footer.html"),
+				fmt.Sprintf(PathPartRoot, "preloader.html"),
 			),
 		)
 
